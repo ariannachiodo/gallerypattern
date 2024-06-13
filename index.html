@@ -276,7 +276,7 @@
 
             data.forEach(item => {
                 item.Objects.forEach((obj, idx) => {
-                    const imagePath = `./assets/img/yolo_crop/${item.FileName}_${idx}.jpg`;
+                    const imagePath = `./yolo_crop/${item.FileName}_${idx}.jpg`;
                     const galleryItem = createGalleryItem(imagePath, obj.label);
                     if (categories[obj.label]) {
                         categories[obj.label].appendChild(galleryItem);
