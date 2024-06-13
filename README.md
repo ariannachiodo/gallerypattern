@@ -101,5 +101,5 @@ Il codice JavaScript illustrato crea una galleria interattiva di immagini basata
 
 ## Target e contesto d’uso
 Il progetto "Patterns in my gallery" potrebbe essere inserito in una mostra interattiva che utilizza l'intelligenza artificiale per esplorare e categorizzare le tendenze fotografiche presenti nelle immagini. Questa esposizione educativa e espositiva illustra come l'IA possa riconoscere e organizzare diversi tipi di oggetti nelle fotografie, offrendo un'opportunità per i visitatori di comprendere le diversità culturali e visive rappresentate attraverso la fotografia.
-
+[<img src="docs/Chiodo-Arianna_gallery-patterns_01.jpeg" width="800">]()
 
