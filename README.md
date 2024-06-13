@@ -4,161 +4,102 @@ Docenti: A. Gysin, G. Profeta
 
 Elaborato 2: Intermedio algoritmi
 
-# Circle packing
+#Patterns in my gallery*
 Autore: Arianna Chiodo
  
-[Circle packing demo](https://ariannachiodo.github.io/circlepacking/#headline)
+[Patterns in my gallery demo](https://ariannachiodo.github.io/gallerypattern/home.html)
 
 
 ## Introduzione e tema
-Il “circle packing” è un affascinante problema geometrico che riguarda la disposizione di cerchi all'interno di una forma specifica nel modo più efficiente possibile. L'obiettivo principale di questo problema è massimizzare il numero di cerchi che possono essere inseriti senza sovrapposizioni all'interno di una determinata area, come un rettangolo, un cerchio più grande, o qualsiasi altra figura geometrica.
+"Patterns in my gallery" è un progetto che esplora le trame emergenti nella mia galleria di immagini, ottenute attraverso la segmentazione degli oggetti identificati dall'intelligenza artificiale. Oltre a offrire un affascinante gioco visivo, il progetto evidenzia anche le tendenze nel fotografare soggetti particolari, mostrando un numero variabile di immagini nelle diverse categorie.
 
 
 
 
 ## Riferimenti progettuali
-Per il mio progetto, ho preso ispirazione da tre principali riferimenti progettuali: il Responsive Design, il User-Centered Design e il Minimalist Design. Il Responsive Design, utilizzando una griglia per layout e contenuti, suggerisce un design reattivo che si adatta a vari dispositivi e dimensioni dello schermo. Il User-Centered Design, con una navigazione chiara e link a sezioni specifiche come storia, funzionamento, utilizzi, ecc., riflette un approccio focalizzato sull'utente, rendendo le informazioni facilmente accessibili. Il Minimalist Design, adottando una struttura pulita e semplice, enfatizza i contenuti piuttosto che gli ornamenti, contribuendo a un'estetica essenziale e diretta.
+Patterns in my gallery è un progetto che si propone di esplorare le trame visive che emergono nella mia collezione di immagini, prendendo ispirazione dalle regole della Gestalt. Questi principi fondamentali dell'organizzazione percettiva guidano la presentazione e la percezione delle immagini da parte degli utenti. Attraverso l'applicazione dei principi della Gestalt, quali similitudine, continuità e prossimità, le immagini vengono raggruppate in base a caratteristiche comuni o disposizioni spaziali. 
 
 ## Design dell’interfraccia e modalià di interazione
-L'interfaccia del progetto "Circle Packing" è stata sviluppata con un design minimalista e intuitivo, focalizzato sulla visualizzazione efficace e interattiva delle informazioni. Tutte le informazioni sono organizzate in una singola pagina, permettendo agli utenti di accedere rapidamente ai contenuti desiderati tramite lo scorrimento verticale o cliccando sui pulsanti situati sulla sinistra, che li porteranno direttamente alla sezione pertinente.
+L'interfaccia si compone di due schermate principali: nella home, troviamo un titolo, un sottotitolo, pulsanti di navigazione e un'anteprima astratta del pattern presente nella seconda schermata. La seconda schermata mostra gli oggetti identificati insieme ai rispettivi label che indicano le categorie. È presente anche un menu a tendina che consente di isolare e visualizzare gruppi specifici di immagini.
 
-Per rappresentare i concetti in modo chiaro e leggibile, ho scelto di utilizzare glifi. Questa scelta non solo migliora la comprensione e la leggibilità delle informazioni, ma contribuisce anche a rendere l'interfaccia esteticamente gradevole.
-
-+------------------+<br>
-					|&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-					|&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-					|&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-					|&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;■&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-					+------------------+
-
-Il layout della pagina è progettato per essere ordinato e coerente, con i glifi che aiutano a enfatizzare e illustrare i vari concetti in modo visivamente accattivante. Questo approccio garantisce un'esperienza utente piacevole e funzionale, facilitando l'interazione e l'esplorazione delle informazioni presentate.
-
-[<img src="docs/img_01.png" width="800">]()
-[<img src="docs/img_02.png" width="800">]()
-[<img src="docs/img_03.png" width="800">]()
+[<img src="docs/Chiodo-Arianna_gallery-patterns_01.png" width="800">]()
+[<img src="docs/Chiodo-Arianna_gallery-patterns_02.png" width="800">]()
+[<img src="docs/Chiodo-Arianna_gallery-patterns_03.png" width="800">]()
 
 
 ## Tecnologia usata
-Il progetto "Circle Packing" utilizza CSS e HTML per gestire il layout e lo stile dell'interfaccia utente, assicurando un design minimale e intuitivo. JavaScript è impiegato per animare dinamicamente i cerchi presenti nella pagina, migliorando l'interattività e la visualizzazione dei contenuti. Questa combinazione di tecnologie permette di creare un'esperienza utente fluida e coinvolgente, ottimizzata per diversi dispositivi e dimensioni di schermo.
-
+Il codice JavaScript illustrato crea una galleria interattiva di immagini basata su dati provenienti da un file JSON. Utilizza il framework YOLO per identificare oggetti nelle immagini e organizza dinamicamente queste immagini in categorie come gatto, cane, mucca e persona. Gli utenti possono cliccare su ciascuna immagine per ingrandirla in un modal, visualizzando il label dell'oggetto identificato. Inoltre, un menu a tendina consente di filtrare le immagini per categoria. Questo approccio offre una navigazione intuitiva e facilita l'esplorazione delle immagini secondo le categorie desiderate.
 
 ```		
-document.querySelectorAll(".testata").forEach( el => {
-	el.addEventListener('click', evt => {
-		evt.target.nextElementSibling.classList.toggle("chiuso")
-	})
-})
+ async function run() {
+            const response = await fetch("./data_yolo.json");
+            const data = await response.json();
 
-var circles = [];
+            data.sort((a, b) => a.Orientation - b.Orientation);
 
+            const categories = {
+                cat: document.getElementById('cat'),
+                dog: document.getElementById('dog'),
+                cow: document.getElementById('cow'),
+                person: document.getElementById('person'),
+            };
 
-function setup() {
-createCanvas(windowWidth, windowHeight);
-// Start with a big one in the center in the hopes that it
-// takes up a lot of a space and the sketch runs faster
-circles.push(new Circle(width / 2, height / 2, min(width, height) / 3));
-}
+            const createGalleryItem = (imagePath, label) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.classList.add('gallery-item');
+                galleryItem.style.backgroundImage = `url('${imagePath}')`;
+                galleryItem.style.backgroundPosition = 'center';
 
-function draw() {
-background(245);
+                galleryItem.addEventListener('click', () => {
+                    const modal = document.getElementById('myModal');
+                    const modalImg = document.getElementById('img01');
+                    modal.style.display = "block";
+                    modalImg.src = imagePath;
+                    document.getElementById('caption').innerHTML = label;
+                });
 
-// All the circles
-for (var i = 0; i < circles.length; i++) {
-var c = circles[i];
-c.show();
+                return galleryItem;
+            };
 
-// Is it a growing one?
-if (c.growing) {
-c.grow();
-// Does it overlap any previous circles?
-for (var j = 0; j < circles.length; j++) {
-var other = circles[j];
-if (other != c) {
-  var d = dist(c.x, c.y, other.x, other.y);
-  if (d - 1 < c.r + other.r) {
-	c.growing = false;
-  }
-}
-}
+            data.forEach(item => {
+                item.Objects.forEach((obj, idx) => {
+                    const imagePath = `./yolo_crop/${item.FileName}_${idx}.jpg`;
+                    const galleryItem = createGalleryItem(imagePath, obj.label);
+                    if (categories[obj.label]) {
+                        categories[obj.label].appendChild(galleryItem);
+                    }
+                });
+            });
 
-// Is it stuck to an edge?
-if (c.growing) {
-c.growing = !c.edges();
-}
-}
-}
+            const span = document.querySelector(".close");
+            span.onclick = () => {
+                document.getElementById('myModal').style.display = "none";
+            };
 
-// Let's try to make a certain number of new circles each frame
-// More later
-var target = 1 + constrain(floor(frameCount / 120), 0, 20);
-// How many
-var count = 0;
-// Try N times
-for (var i = 0; i < 1000; i++) {
-if (addCircle()) {
-count++;
-}
-// We made enough
-if (count == target) {
-break;
-}
-}
+            document.getElementById('category-select').addEventListener('change', (event) => {
+                const selectedCategory = event.target.value;
+                if (selectedCategory === 'all') {
+                    Object.values(categories).forEach(category => {
+                        category.style.display = 'flex';
+                    });
+                } else {
+                    Object.values(categories).forEach(category => {
+                        category.style.display = 'none';
+                    });
+                    categories[selectedCategory].style.display = 'flex';
+                }
+            });
 
-// We can't make any more
-if (count < 1) {
-noLoop();
-console.log("finished");
-}
-}
+            // Show all categories initially
+            Object.values(categories).forEach(category => {
+                category.style.display = 'flex';
+            });
+        }
 
-// Add one circle
-function addCircle() {
-// Here's a new circle
-var newCircle = new Circle(random(width), random(height), 1);
-// Is it in an ok spot?
-for (var i = 0; i < circles.length; i++) {
-var other = circles[i];
-var d = dist(newCircle.x, newCircle.y, other.x, other.y);
-if (d < other.r + 4) {
-newCircle = undefined;
-break;
-}
-}
-// If it is, add it
-if (newCircle) {
-circles.push(newCircle);
-return true;
-} else {
-return false;
-}
-}
-
-// Circle object
-function Circle(x, y, r) {
-this.growing = true;
-this.x = x;
-this.y = y;
-this.r = r;
-}
-
-// Check stuck to an edge
-Circle.prototype.edges = function() {
-return (this.r > width - this.x || this.r > this.x || this.r > height - this.y || this.r > this.y);
-}
-
-// Grow
-Circle.prototype.grow = function() {
-this.r += 0.5;
-}
-
-// Show
-Circle.prototype.show = function() {
-noFill();
-strokeWeight(0.5);
-stroke(0, 0, 0);
-ellipse(this.x, this.y, this.r * 2);
-}
+        window.addEventListener("load", run);
 ```
 
 ## Target e contesto d’uso
-Il progetto "Circle Packing" è versatile e si presta a diversi contesti d'uso educativi e divulgativi. Rivolgendosi principalmente agli studenti e agli appassionati di grafica e visualizzazione dati, può fungere da risorsa educativa per corsi di design, grafica o informatica. Offre una piattaforma per esplorare tecniche avanzate di visualizzazione dati e animazione, consentendo agli utenti di comprendere concetti complessi attraverso una rappresentazione visiva interattiva.
+Il progetto "Patterns in my gallery" potrebbe essere inserito in una mostra interattiva che utilizza l'intelligenza artificiale per esplorare e categorizzare le tendenze fotografiche presenti nelle immagini. Questa esposizione educativa e espositiva illustra come l'IA possa riconoscere e organizzare diversi tipi di oggetti nelle fotografie, offrendo un'opportunità per i visitatori di comprendere le diversità culturali e visive rappresentate attraverso la fotografia.
+
+
