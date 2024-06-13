@@ -6,9 +6,7 @@
     <title>Me, Myself and AI</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap">
     <style>
-
-
-        body {
+         body {
             font-family: 'Roboto Mono', monospace;
             font-size: 16px;
             line-height: 1.6;
@@ -17,52 +15,83 @@
             padding: 0;
             background-color: #000000;
             display: flex;
-            justify-content: flex-start;
+            flex-direction: column;
             align-items: flex-start;
             min-height: 100vh;
         }
 
-     
-
-        h1{
-            margin-top: 1em;
-    font-size: 5em;
-    color: #dfdede;
-    display: flex;
-
-
-        }
-        h2{
-            margin-right: 2em;
-           
-    font-size: 0.5em;
-    color: #dfdede;
-    display: flex;
-
-
+        h1 {
+            margin-left: 0.5em;
+            margin-top: 2em;
+            font-size: 5em;
+            color: #ffffff;
         }
 
-    
-    
-        p{
-            
-            margin-bottom: 3em;
-            margin-top: -3em;
+        h2 {
+            margin-right: 1em;
+            margin-left: 1em;
+            margin-top: -0.2em;
             font-size: 1em;
-           
-       
+            text-align: center;
+            color: #ffffff;
+        }
 
+        p {
+            margin-left: 2.5em;
+            margin-top: -3.5em;
+            font-size: 1em;
+        }
+
+        .button-container {
+            position: fixed;
+            top: 2em;
+            right: 20px;
+            z-index: 100; /* Z-index superiore per il pulsante e il menu */
+        }
+
+        .button-container button {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1em;
+            padding: 0.5em 1em;
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #dfdede;
+        }
+
+        .select-container {
+          
+            margin: 2em;
+            z-index: 100; /* Z-index superiore per il menu a tendina */
+        }
+
+        .select-container select {
+            position: fixed;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1em;
+            padding: 0.5em;
+        }
+
+        .category {
+            display: none;
+            flex-wrap: nowrap;
+            gap: 0;
+            overflow-x: auto;
+            justify-content: left;
         }
 
         .container {
-            width: 100%;
-            max-width: 1000px;
-           
+            margin-top: 2em;
+            margin-left: 2em;
             margin-right: 5em;
-            gap: 5em;
-            min-width: 100em;
-            margin-left: 5em;
-            /* padding: 20px; */
+            gap: 10em;
+            z-index: 1; /* Z-index standard per il contenitore principale */
+            margin-top: 5em;
         }
 
         .gallery {
@@ -71,34 +100,18 @@
             gap: 5em;
         }
 
-        .category {
-            display: flex;
-            flex-wrap: nowrap; /* Rimuovi il wrap */
-            gap: 0; /* Rimuovi il gap tra le immagini */
-            overflow-x: auto; /* Permetti lo scrolling orizzontale se necessario */
-        }
-
-        .category-title {
-            width: 100%;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #8E8D8D;
-            margin-bottom: 0.5rem;
-        }
-
         .gallery-item {
             position: relative;
-            width: 150px; /* Larghezza fissa per gli elementi della galleria */
-            height: 150px;
             overflow: hidden;
             cursor: pointer;
             background-repeat: no-repeat;
             background-size: cover;
+            margin-right: auto;
         }
 
         .gallery-item img {
-            width: 100%; /* Imposta la larghezza al 100% */
-            height: 100%; /* Imposta l'altezza al 100% */
+            width: 100%;
+            height: 50%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
@@ -110,20 +123,18 @@
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 9999; /* Z-index superiore per il modal */
             left: 0;
             top: 0;
-            width: 100%;
-            height: 100%;
             overflow: auto;
             background-color: rgba(0,0,0,0.8);
+            width: 100%;
+            height: 100%;
         }
 
         .modal-content {
             margin: 5% auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
+            display: flex;
             height: auto;
         }
 
@@ -143,56 +154,72 @@
             text-decoration: none;
             cursor: pointer;
         }
-
+        #caption{
+            text-align: center;
+        }
         #cat {
             display: flex;
-
         }
 
-        #cat .gallery-item { 
-            height: 300px;
-            width: 100px;
-
-            background-color: red;
+        #cat .gallery-item {
+            height: 20em;
+            width: 0.6em;
+            background-color: rgb(0, 0, 0);
+            margin-right: 0;
         }
 
         #dog {
             display: flex;
-
+            margin-bottom: 4em; /* Aggiunto margine inferiore tra Dog e Cow */
         }
 
-        #dog .gallery-item { 
-            height: 300px;
-            width: 120px;
-
-            background-color: red;
+        #dog .gallery-item {
+            height: 20em;
+            width: 0.6em;
+            background-color: rgb(0, 0, 0);
+            margin-right: 0; /* Rimuove lo spazio tra le immagini dei cani */
+            margin-top: 0; /* Rimuove lo spazio tra le immagini dei cani */
         }
 
         #cow {
             display: flex;
-
+            margin-bottom: 4em;
         }
 
-        #cow .gallery-item { 
-            height: 300px;
-            width: 40px;
+        #cow .gallery-item {
+            height: 20em;
+            width: 0.6em;
+            background-color: rgb(0, 0, 0);
+            margin-right: 0;
+        }
 
-            background-color: red;
+        #person {
+            display: flex;
+        }
+
+        #person .gallery-item {
+            height: 20em;
+            width: 0.6em;
+            background-color: rgb(0, 0, 0);
+            margin-right: 0;
         }
     </style>
 </head>
-<header>
-
-
-
-</header>
-
-
 <body>
+    <div class="select-container">
+        <select id="category-select">
+            <option value="all" selected>Select</option>
+            <option value="cat">Cat</option>
+            <option value="dog">Dog</option>
+            <option value="cow">Cow</option>
+            <option value="person">Person</option>
+        </select>
+    </div>
     
     <div class="container">
-        <h1>Me, Myself and AI</h1>
-        <p>exploration of the pattern in my image gallery</p>
+        <div class="button-container">
+            <button onclick="window.location.href='home.html'">Home</button>
+        </div>
         <div class="gallery" id="gallery">
             <div id="cat" class="category">
                 <h2 class="category-title">Cat</h2>
@@ -200,9 +227,13 @@
             <div id="dog" class="category">
                 <h2 class="category-title">Dog</h2>
             </div>
-            <div id="cow" class="category">
-                <h2 class="category-title">Cow</h2>
-            </div>
+        </div>
+        <div id="cow" class="category">
+            <h2 class="category-title">Cow</h2>
+        </div>
+    </div>
+        <div id="person" class="category">
+            <h2 class="category-title">Person</h2>
         </div>
     </div>
 
@@ -214,70 +245,68 @@
 
     <script>
         async function run() {
-            let data;
+            const response = await fetch("./data_yolo.json");
+            const data = await response.json();
 
-            await fetch("./data_yolo.json")
-                .then(r => r.json())
-                .then(json => {
-                    data = json;
-                });
-
-            data.sort((elementoA, elementoB) => {
-                return elementoA.Orientation - elementoB.Orientation;
-            });
+            data.sort((a, b) => a.Orientation - b.Orientation);
 
             const categories = {
                 cat: document.getElementById('cat'),
                 dog: document.getElementById('dog'),
-                cow: document.getElementById('cow')
+                cow: document.getElementById('cow'),
+                person: document.getElementById('person'),
             };
 
             const createGalleryItem = (imagePath, label) => {
                 const galleryItem = document.createElement('div');
                 galleryItem.classList.add('gallery-item');
-                // galleryItem.style.position = 'relative'
-                // galleryItem.style.right = '99px'
-
-                // const image = document.createElement('img');
-                // image.src = imagePath;
-                // image.alt = `Image of a ${label}`;
-
-                let url = "url('" + imagePath + "')";
-                galleryItem.style.backgroundImage = url;
+                galleryItem.style.backgroundImage = `url('${imagePath}')`;
                 galleryItem.style.backgroundPosition = 'center';
 
-                // console.log(imagePath)
-
-        
-                galleryItem.onclick = function() {
+                galleryItem.addEventListener('click', () => {
                     const modal = document.getElementById('myModal');
                     const modalImg = document.getElementById('img01');
                     modal.style.display = "block";
-                    modalImg.src = this.src;
-                    document.getElementById('caption').innerHTML = this.alt;
-                };
+                    modalImg.src = imagePath;
+                    document.getElementById('caption').innerHTML = label;
+                });
 
-                // galleryItem.appendChild(image);
                 return galleryItem;
             };
 
-            for (const item of data) {
-                // if (item.Objects && item.Objects.length > 0) {
-                    //for (const obj of item.Objects) {
-                    item.Objects.forEach( (obj, idx) => {
-                        const imagePath = "./yolo_crop/" + item.FileName + "_" + idx + ".jpg";
-                        const galleryItem = createGalleryItem(imagePath, obj.label);
-                        if (categories[obj.label]) {
-                            categories[obj.label].appendChild(galleryItem);
-                        }
-                    })
-                // }         
-            }
+            data.forEach(item => {
+                item.Objects.forEach((obj, idx) => {
+                    const imagePath = `./yolo_crop/${item.FileName}_${idx}.jpg`;
+                    const galleryItem = createGalleryItem(imagePath, obj.label);
+                    if (categories[obj.label]) {
+                        categories[obj.label].appendChild(galleryItem);
+                    }
+                });
+            });
 
-            const span = document.getElementsByClassName("close")[0];
-            span.onclick = function() {
+            const span = document.querySelector(".close");
+            span.onclick = () => {
                 document.getElementById('myModal').style.display = "none";
-            }
+            };
+
+            document.getElementById('category-select').addEventListener('change', (event) => {
+                const selectedCategory = event.target.value;
+                if (selectedCategory === 'all') {
+                    Object.values(categories).forEach(category => {
+                        category.style.display = 'flex';
+                    });
+                } else {
+                    Object.values(categories).forEach(category => {
+                        category.style.display = 'none';
+                    });
+                    categories[selectedCategory].style.display = 'flex';
+                }
+            });
+
+            // Show all categories initially
+            Object.values(categories).forEach(category => {
+                category.style.display = 'flex';
+            });
         }
 
         window.addEventListener("load", run);
