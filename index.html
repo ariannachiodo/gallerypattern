@@ -245,7 +245,7 @@
 
     <script>
         async function run() {
-            const response = await fetch("./data_yolo.json");
+            const response = await fetch("./assets/json/data_yolo.json");
             const data = await response.json();
 
             data.sort((a, b) => a.Orientation - b.Orientation);
@@ -276,7 +276,7 @@
 
             data.forEach(item => {
                 item.Objects.forEach((obj, idx) => {
-                    const imagePath = `./yolo_crop/${item.FileName}_${idx}.jpg`;
+                    const imagePath = `./assets/img/yolo_crop/${item.FileName}_${idx}.jpg`;
                     const galleryItem = createGalleryItem(imagePath, obj.label);
                     if (categories[obj.label]) {
                         categories[obj.label].appendChild(galleryItem);
